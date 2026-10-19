@@ -1,4 +1,4 @@
-import {$,rpc,busy,message,date,escapeHTML as esc} from './common.js?v=10';
+import {$,rpc,busy,message,date,escapeHTML as esc} from './common.js?v=20261019-1';
 import {sessionChangeError} from './session-change.js?v=12';
 
 export function renderAdminSessionChange({registration:r,sessions,hasCertificate,isDirty,onUpdated}){

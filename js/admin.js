@@ -1,4 +1,4 @@
-import {$,$$,shell,db,configured,rpc,getEvent,message,busy,badge,payments,statuses,escapeHTML as esc,date,money,download,registrationWindow} from './common.js?v=10';
+import {$,$$,shell,db,configured,rpc,getEvent,message,busy,badge,payments,statuses,escapeHTML as esc,date,money,download,registrationWindow} from './common.js?v=20261019-1';
 import {certificatePDF} from './pdf.js?v=11';
 import {getSessions,renderSessions,fillSessionOptions,sessionText} from './sessions.js';
 import {renderAdminSessionChange} from './admin-session-change.js?v=12';

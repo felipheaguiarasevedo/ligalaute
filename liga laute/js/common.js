@@ -1,4 +1,5 @@
 import { createClient } from '../assets/vendor/supabase.js';
+import {header as siteHeader,footer as siteFooter,shell as siteShell} from './site-shell.js?v=20261019-1';
 export const $ = (q, root=document) => root.querySelector(q);
 export const $$ = (q, root=document) => [...root.querySelectorAll(q)];
 export const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -57,6 +58,6 @@ export function paymentBlock(e,registration=null){
 }
 export function bindPayment(root,e){$$('[data-copy-payment]',root).forEach(btn=>btn.addEventListener('click',()=>copy(e[btn.dataset.copyPayment],btn)));}
 
-export function header(active=''){return `<a class="skip" href="#conteudo">Ir ao conteúdo</a><header class="header"><a class="brand" href="index.html"><img src="assets/laute-logo.jpeg" alt="Símbolo da LAUTE"><span><strong>LAUTE<span class="brand-dot">.</span></strong><small>ENSINO · PESQUISA · EXTENSÃO</small></span></a><nav aria-label="Menu principal"><a ${active==='register'?'aria-current="page"':''} href="index.html">Inscrição</a><a ${active==='lookup'?'aria-current="page"':''} href="consultar.html">Minha inscrição</a><a ${active==='gallery'?'aria-current="page"':''} href="galeria.html">Galeria</a><a ${active==='about'?'aria-current="page"':''} href="sobre.html">Sobre nós</a><a class="admin-link" href="admin.html" aria-label="Acessar painel administrativo">Painel da liga</a></nav></header>`;}
-export function footer(){return `<footer class="footer"><div><strong>LAUTE</strong><p>Liga Acadêmica de Urgência, Trauma e Emergência<br>Faculdade Estácio · São Luís, MA</p></div><div><a href="privacidade.html">Privacidade e condições</a><a href="galeria.html">Galeria de fotos</a><a href="validar.html">Validar certificado</a><span>© 2026 LAUTE</span></div></footer>`;}
-export function shell(active){$('#site-header').innerHTML=header(active);$('#site-footer').innerHTML=footer();}
+export function header(active=''){return siteHeader(active);}
+export function footer(){return siteFooter();}
+export function shell(active){siteShell(active);}

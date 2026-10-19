@@ -1,4 +1,4 @@
-import {$,$$,rpc,date,escapeHTML as esc} from './common.js';
+import {$,$$,rpc,date,escapeHTML as esc} from './common.js?v=20261019-1';
 
 export async function getSessions(){
   const data=await rpc('laute_session_availability');

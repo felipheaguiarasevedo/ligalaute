@@ -5,3 +5,11 @@
 /privacidade /privacidade.html 200
 
 /galeria /galeria.html 200
+/cursos /cursos.html 200
+/eventos /cursos.html 200
+/sutura /sutura.html 200
+/certificados /certificados.html 200
+/contato /contato.html 200
+/participante /consultar.html 200
+/inscricao /cursos.html 302
+/inscricao.html /cursos.html 302

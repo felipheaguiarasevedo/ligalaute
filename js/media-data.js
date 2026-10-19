@@ -1,0 +1,12 @@
+export const photos = [
+  {id:'turma',src:'assets/photos/turma-sutura.webp',width:1280,height:720,category:'equipe',caption:'Uma experiência construída em conjunto.',alt:'Participantes do Curso de Sutura reunidos no laboratório com o estandarte da LAUTE.'},
+  {id:'orientacao',src:'assets/photos/orientacao-pratica.webp',width:1152,height:1536,category:'pratica',caption:'Aprendizado de perto, com orientação.',alt:'Participantes acompanham uma demonstração de sutura em placa de simulação.'},
+  {id:'bancada',src:'assets/photos/aprendizado-bancada.webp',width:1152,height:1536,category:'pratica',caption:'Da teoria à bancada de simulação.',alt:'Acadêmicos praticam técnicas de sutura em placas de treinamento ao redor da bancada.'},
+  {id:'supervisao',src:'assets/photos/pratica-supervisionada.webp',width:1152,height:1536,category:'pratica',caption:'Atenção aos detalhes em cada ponto.',alt:'Participantes realizam suturas em simuladores sob orientação do ministrante.'},
+  {id:'tecnica',src:'assets/photos/tecnica-sutura.webp',width:1152,height:1536,category:'pratica',caption:'Concentração que se transforma em aprendizado.',alt:'Participantes com jalecos e equipamentos de proteção praticam sutura em placas de silicone.'},
+  {id:'detalhes',src:'assets/photos/detalhes-simulacao.webp',width:1152,height:1536,category:'pratica',caption:'Treinar, observar e aperfeiçoar.',alt:'Detalhe das mãos de uma participante praticando pontos em uma placa de sutura.'},
+  {id:'equipe-1',src:'assets/photos/equipe-organizacao.webp',width:1200,height:1600,category:'equipe',caption:'Gente que faz a LAUTE acontecer.',alt:'Integrantes da organização e ministrante junto ao estandarte da LAUTE.'},
+  {id:'equipe-2',src:'assets/photos/equipe-liga.webp',width:1152,height:1536,category:'equipe',caption:'Compromisso compartilhado com a formação.',alt:'Organizadores do curso reunidos no laboratório junto ao símbolo da liga.'},
+  {id:'equipe-3',src:'assets/photos/encontro-laute.webp',width:1200,height:1600,category:'equipe',caption:'Cada encontro fortalece nossa liga.',alt:'Grupo da organização do Curso de Sutura com o estandarte da LAUTE.'},
+  {id:'lembranca',src:'assets/photos/lembranca-curso.webp',width:1152,height:1536,category:'bastidores',caption:'Uma lembrança de um dia de aprendizado.',alt:'Caderneta do Curso de Sutura da LAUTE, realizado em 15 de outubro de 2026, com o laboratório ao fundo.'},
+];

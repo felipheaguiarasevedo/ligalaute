@@ -1,4 +1,4 @@
-import { $, shell, db, escapeHTML as esc, message } from './common.js?v=10';
+import { $, shell, db, escapeHTML as esc, message } from './common.js?v=20261019-1';
 shell('gallery');
 const node=$('#public-gallery');
 try {

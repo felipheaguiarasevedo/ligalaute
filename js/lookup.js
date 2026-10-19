@@ -1,4 +1,4 @@
-import {$,shell,getPublicEvent,getPaymentEvent,hydrate,message,rpc,busy,badge,payments,escapeHTML as esc,paymentBlock,bindPayment,date,money} from './common.js?v=10';
+import {$,shell,getPublicEvent,getPaymentEvent,hydrate,message,rpc,busy,badge,payments,escapeHTML as esc,paymentBlock,bindPayment,date,money} from './common.js?v=20261019-1';
 import { certificatePDF } from './pdf.js?v=10';
 import {registrationSession} from './sessions.js';
 import {mountSessionChange} from './session-change.js?v=12';

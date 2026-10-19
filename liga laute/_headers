@@ -25,3 +25,27 @@
 
 /galeria.html
   Cache-Control: no-store
+
+/sobre.html
+  Cache-Control: no-store
+
+/cursos.html
+  Cache-Control: no-store
+
+/sutura.html
+  Cache-Control: no-store
+
+/certificados.html
+  Cache-Control: no-store
+
+/contato.html
+  Cache-Control: no-store
+
+/site.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/photos/*
+  Cache-Control: public, max-age=86400

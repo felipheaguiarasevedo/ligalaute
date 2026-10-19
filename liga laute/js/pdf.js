@@ -1,4 +1,4 @@
-import {download} from './common.js';
+import {download} from './common.js?v=20261019-1';
 export async function certificatePDF(c){
   if(!c?.valid)throw new Error('Certificado não está disponível ou foi revogado.');
   if(!window.PDFLib)throw new Error('Não foi possível carregar o gerador de PDF. Atualize a página.');
