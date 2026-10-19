@@ -1,0 +1,94 @@
+LAUTE — TROCA DE TURNO PELO PARTICIPANTE
+Atualização preparada a partir do arquivo LAUTE_DEPLOY_TESTE_CERTIFICADO(1).zip.
+
+PARA ATIVAR — FAÇA NESTA ORDEM
+
+1. Extraia este ZIP em uma pasta no computador.
+
+2. Abra o projeto Supabase que você já usa neste formulário.
+   Entre em SQL Editor > New query.
+   Abra o arquivo supabase/ATUALIZAR_TROCA_TURNO.sql desta pasta.
+   Copie TODO o conteúdo, cole na nova consulta e clique em Run.
+   Aguarde a confirmação de sucesso.
+   Esta é uma atualização: não execute novamente o instalador antigo e
+   não apague nenhuma tabela. Inscrições, pagamentos e certificados são mantidos.
+   O script de atualização pode ser repetido sem zerar as liberações.
+
+3. No Netlify, abra o projeto lauteforms > Deploys.
+   Envie a pasta extraída que contém index.html diretamente na raiz.
+   Não envie somente o index.html: inclua assets, js, config.js, styles.css
+   e os demais arquivos. Aguarde o deploy ficar Published.
+   O config.js do arquivo enviado por você já foi preservado.
+
+4. Abra https://lauteforms.netlify.app/admin.html e atualize a página.
+   Se ainda aparecer o painel anterior, use Ctrl+F5 (Windows).
+
+COMO LIBERAR PARA UMA PESSOA
+
+1. No painel, localize a inscrição e clique em Gerenciar.
+2. Procure “Troca de turno pelo participante”.
+3. Clique em “Liberar uma troca de turno”.
+4. Avise a pessoa para entrar em:
+   https://lauteforms.netlify.app/consultar.html
+   Ela deve informar o código da inscrição e o e-mail cadastrado.
+5. Na consulta, ela verá os outros turnos, a data, o horário e as vagas.
+   Basta escolher o turno e clicar em “Confirmar troca de turno”.
+   Se ela já estiver com a consulta aberta, deve clicar em
+   “Atualizar liberação e vagas”.
+
+Se você modificou outros dados no formulário administrativo, salve-os antes
+de liberar a troca. A liberação tem seu próprio botão e é salva imediatamente.
+
+COMO LIBERAR EM LOTE
+
+Selecione as inscrições na lista (ou use os filtros e selecione os resultados).
+Em “Ação em lote”, escolha “Liberar troca de turno pelo participante” e aplique.
+O painel informa quantas foram liberadas e quais não puderam ser alteradas.
+A seleção pode conter pessoas de buscas anteriores: confira a quantidade.
+
+COMO REVOGAR
+
+Use “Revogar liberação” em Gerenciar, ou a ação de revogação em lote.
+Isso impede uma troca ainda não utilizada. Uma troca que já foi concluída
+não é desfeita ao revogar; para outra troca, faça uma nova liberação.
+
+REGRAS DA TROCA
+
+- Cada autorização permite UMA troca concluída. As liberações não se acumulam.
+- A inscrição continua com o mesmo código, situação, pagamento e valor.
+- Inscrições pendentes e confirmadas ocupam vagas, como no sistema atual.
+- Ao concluir, a vaga anterior é liberada e a nova passa a ser ocupada.
+- O banco confere a autorização e a lotação novamente ao salvar.
+- Se o turno lotar antes da confirmação, não há mudança nem perda da liberação.
+- O prazo de novas inscrições não impede uma troca já autorizada.
+- O turno de destino precisa aceitar inscrições, ter vaga e não ter começado
+  nem sido marcado como realizado. A pausa global de novas inscrições não
+  impede a troca autorizada; a pausa específica do turno impede.
+- Inscrições suspensas/canceladas, presença registrada, certificado ativo ou
+  turno atual já iniciado/realizado exigem atendimento da organização.
+- O painel mostra “Troca liberada” na lista e a última troca nos detalhes.
+  Essas informações também constam na exportação CSV.
+- O histórico das trocas fica na tabela laute_session_changes, protegido para
+  administradores; a consulta pública não expõe a lista de participantes.
+- Não há envio automático de WhatsApp ou e-mail nesta atualização.
+  Avise o participante pelo canal que vocês já utilizam.
+
+CONFERÊNCIA APÓS O DEPLOY
+
+Libere uma inscrição de teste pelo admin e consulte-a com código e e-mail.
+Confira se aparecem apenas os outros turnos. Depois de uma troca, consulte
+novamente e confira o turno, o código e o pagamento. A opção deverá ficar
+bloqueada até uma nova liberação.
+
+Se aparecer “A troca de turno ainda não foi ativada”, confira se executou o SQL
+no mesmo projeto Supabase usado pelo config.js. Aguarde alguns segundos e
+clique em “Atualizar liberação e vagas”.
+
+ESCOPO DA ENTREGA
+
+Pacote completo atualizado para você publicar. O banco e o site de produção
+não foram modificados durante a preparação. Os testes foram feitos em ambiente
+isolado, sem inscrições ou mensagens reais.
+
+Foram preservados os arquivos de certificados (incluindo a pré-visualização),
+galeria, informações do curso e configuração de conexão do ZIP enviado.

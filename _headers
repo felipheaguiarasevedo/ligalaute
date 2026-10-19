@@ -1,0 +1,27 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
+/config.js
+  Cache-Control: no-store
+
+/admin.html
+  Cache-Control: no-store
+
+/consultar.html
+  Cache-Control: no-store
+
+/validar.html
+  Cache-Control: no-store
+/
+  Cache-Control: no-store
+
+/index.html
+  Cache-Control: no-store
+
+
+/galeria.html
+  Cache-Control: no-store
