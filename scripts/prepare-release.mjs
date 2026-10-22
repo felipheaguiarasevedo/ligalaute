@@ -27,7 +27,7 @@ for(const file of readdirSync('js').filter(file=>file.endsWith('.js'))){
   js=js.replace(/(['"])(\.\/[a-z0-9-]+\.js)(?:\?v=[^'"]*)?\1/g,(_,quote,path)=>`${quote}${path}?v=${SITE_VERSION}${quote}`);
   writeFileSync(path,js);
 }
-const publicFiles=[...pages,'styles.css','site.css','course-ui.css','config.js','_headers','_redirects','robots.txt','favicon.ico','supabase/ATIVAR_MULTICURSOS_PRIMEIROS_SOCORROS.sql'];
+const publicFiles=[...pages,'styles.css','site.css','course-ui.css','config.js','_headers','_redirects','robots.txt','favicon.ico','supabase/ATIVAR_MULTICURSOS_PRIMEIROS_SOCORROS.sql','supabase/ATUALIZAR_PIX_PRIMEIROS_SOCORROS.sql'];
 const filesUnder=(dir)=>readdirSync(dir,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?filesUnder(join(dir,entry.name)):[join(dir,entry.name)]);
 publicFiles.push(...filesUnder('js'),...filesUnder('assets'));
 for(const path of publicFiles){const target=join('liga laute',path);mkdirSync(dirname(target),{recursive:true});copyFileSync(path,target);}

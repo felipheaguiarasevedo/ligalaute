@@ -122,18 +122,20 @@ do $$ declare t text; begin
   end loop;
 end $$;
 
--- Apenas o financeiro é reaproveitado. Não copia prazo vencido, ministrante ou assinaturas de sutura.
+-- Pix de R$ 25,00 enviado pela organização; contato financeiro reaproveitado de sutura.
 insert into public.laute_courses(id,title,opens_at,closes_at,starts_at,price,hours,venue,support_name,support_whatsapp,
   pix_key,pix_copy_paste,pix_recipient,contact_whatsapp,finance_contact,payment_instructions)
 select 'primeiros-socorros-2026','Curso de Primeiros Socorros — PCR e OVACE',
   '2026-10-22 00:00:00-03','2026-11-18 23:59:59-03','2026-11-19 08:00:00-03',25,6,
   'Estácio Turu — espaço a divulgar','Alice · 1ª Secretária','5598991100569',
-  to_jsonb(e)->>'pix_key',null,to_jsonb(e)->>'pix_recipient',to_jsonb(e)->>'contact_whatsapp',
+  'f73756ec-b123-4344-a440-eb6efadad827',
+  '00020101021126580014br.gov.bcb.pix0136f73756ec-b123-4344-a440-eb6efadad827520400005303986540525.005802BR5918VITORIA S DA COSTA6008SAO LUIS62070503***6304F720',
+  'VITORIA SANTOS DA COSTA',to_jsonb(e)->>'contact_whatsapp',
   to_jsonb(e)->>'finance_contact',
   'Realize o pagamento após concluir a inscrição e envie o comprovante para a coordenação financeira. A vaga depende da conferência pela organização.'
 from public.laute_event e where e.id='sutura-2026'
 on conflict(id) do nothing;
--- O código Pix copia-e-cola antigo não é copiado: ele pode conter o valor de R$ 30,00.
+-- Em projetos já ativados, use ATUALIZAR_PIX_PRIMEIROS_SOCORROS.sql para aplicar o novo Pix.
 insert into public.laute_course_sessions(id,course_id,label,starts_at,ends_at,capacity) values
 ('ps-2026-manha','primeiros-socorros-2026','Manhã','2026-11-19 08:00:00-03','2026-11-19 12:00:00-03',60),
 ('ps-2026-tarde','primeiros-socorros-2026','Tarde','2026-11-19 14:00:00-03','2026-11-19 18:00:00-03',60),

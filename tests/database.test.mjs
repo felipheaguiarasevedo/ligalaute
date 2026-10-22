@@ -25,7 +25,7 @@ test('migração e regras do novo curso em PostgreSQL local isolado', {skip:!mod
     await t.test('semente tem três turnos de 60 vagas e noite até 21h30, sem ministrante inventado',async()=>{
       const [c]=await q('select * from laute_courses');const s=await q('select * from laute_course_sessions order by starts_at');
       assert.equal(c.price,'25.00');assert.equal(c.hours,'6.00');assert.equal(c.instructor,null);
-      assert.equal(c.payment_deadline,null);assert.equal(c.pix_key,'chave-existente');assert.equal(c.pix_copy_paste,null);
+      assert.equal(c.payment_deadline,null);assert.equal(c.pix_key,'f73756ec-b123-4344-a440-eb6efadad827');assert.match(c.pix_copy_paste,/540525\.00/);assert.equal(c.pix_recipient,'VITORIA SANTOS DA COSTA');
       assert.equal(c.support_whatsapp,'5598991100569');assert.deepEqual(s.map(x=>x.capacity),[60,60,60]);
       assert.equal(new Date(s[2].ends_at).toISOString(),'2026-11-20T00:30:00.000Z');
       assert.equal(new Date(c.opens_at).toISOString(),'2026-10-22T03:00:00.000Z');
@@ -52,7 +52,7 @@ test('migração e regras do novo curso em PostgreSQL local isolado', {skip:!mod
       assert.equal(Number(registration.amount_due),25);assert.equal(registration.status,'pending');assert.ok(!('code'in registration));
       const again=await call('laute_course_register',{payload:args});assert.equal(again.id,registration.id);
       await assert.rejects(call('laute_course_register',{payload:{...args,request_id:crypto.randomUUID()}}),/Já existe/);
-      const payment=await call('laute_course_payment',{p_course_id:args.course_id,p_full_name:args.full_name,p_email:args.email});assert.equal(payment.pix_key,'chave-existente');
+      const payment=await call('laute_course_payment',{p_course_id:args.course_id,p_full_name:args.full_name,p_email:args.email});assert.equal(payment.pix_key,'f73756ec-b123-4344-a440-eb6efadad827');
     });
     await t.test('nova consulta falha com nome/e-mail incorreto e não retorna notas privadas',async()=>{
       const r=await call('laute_lookup_by_name',{p_course_id:args.course_id,p_full_name:'JOANA DE TESTE',p_email:'JOANA@example.com'});
@@ -95,6 +95,15 @@ test('migração e regras do novo curso em PostgreSQL local isolado', {skip:!mod
       await db.exec(migration);assert.equal((await q('select count(*)::int as n from laute_course_registrations'))[0].n,before);
       assert.equal((await q("select capacity from laute_course_sessions where id='ps-2026-noite'"))[0].capacity,2);
       const old=await q('select * from laute_registrations');assert.equal(old.length,1);assert.equal(old[0].code,'CODIGO-ANTIGO');
+    });
+    await t.test('atualização de Pix funciona no curso já ativado e mantém inscrições, preço e financeiro de Sutura',async()=>{
+      await owner();const before=(await q('select count(*)::int as n from laute_course_registrations'))[0].n;
+      await db.exec("update laute_courses set pix_copy_paste=null,pix_key='configuração-anterior' where id='primeiros-socorros-2026'");
+      await db.exec(readFileSync('supabase/ATUALIZAR_PIX_PRIMEIROS_SOCORROS.sql','utf8'));
+      const [course]=await q("select * from laute_courses where id='primeiros-socorros-2026'");
+      assert.equal(course.price,'25.00');assert.equal(course.pix_key,'f73756ec-b123-4344-a440-eb6efadad827');assert.ok(course.pix_copy_paste.endsWith('6304F720'));
+      assert.equal((await q('select count(*)::int as n from laute_course_registrations'))[0].n,before);
+      assert.equal((await q("select pix_key from laute_event where id='sutura-2026'"))[0].pix_key,'chave-existente');
     });
   }finally{await db.close();}
 });
