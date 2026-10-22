@@ -38,7 +38,7 @@ test('o menu institucional preserva o acesso a inscrições, painel e validaçã
   assert.match(header(),/aria-controls="s-navigation"/);
 });
 test('as rotas e os IDs usados na consulta e na validação continuam disponíveis',()=>{
-  for(const [file,ids] of [['consultar.html',['lookup-form','lookup-error','lookup-result']],['validar.html',['verify-form','verify-error','certificate-result']],['admin.html',['login-form']]]){
+  for(const [file,ids] of [['consultar.html',['participant-form','participant-error','participant-result']],['validar.html',['verify-form','verify-error','certificate-result']],['admin.html',['login-form']]]){
     const html=readFileSync(file,'utf8');for(const id of ids)assert.ok(html.includes(`id="${id}"`),`${file}: ${id}`);
   }
   const pdf=readFileSync('js/pdf.js','utf8');assert.match(pdf,/certificado-modelo-sutura-2026/);

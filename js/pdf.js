@@ -1,4 +1,4 @@
-import {download} from './common.js?v=20261019-1';
+import {download} from './common.js?v=20261022-ps1';
 export async function certificatePDF(c){
   if(!c?.valid)throw new Error('Certificado não está disponível ou foi revogado.');
   if(!window.PDFLib)throw new Error('Não foi possível carregar o gerador de PDF. Atualize a página.');
@@ -53,7 +53,7 @@ export async function certificatePDF(c){
   center('A LAUTE certifica que',319,13);
   let nameSize=28;while(bold.widthOfTextAtSize(safe(c.full_name),nameSize)>660&&nameSize>16)nameSize--;
   const nameLines=wrap(c.full_name,660,bold,nameSize);let y=278;nameLines.forEach(line=>{center(line,y,nameSize,bold);y-=nameSize+5;});
-  y-=9;const paragraph=`participou do ${c.title}, ministrado por ${c.instructor}, em ${c.date}${c.session_label?`, no turno ${c.session_label.toLowerCase()} (${c.time})`:''}, com carga horária de ${Number(c.hours).toLocaleString('pt-BR')} horas de atividades extracurriculares.`;
+  y-=9;const paragraph=`participou do ${c.title}${c.instructor?`, ministrado por ${c.instructor}`:''}, em ${c.date}${c.session_label?`, no turno ${c.session_label.toLowerCase()} (${c.time})`:''}, com carga horária de ${Number(c.hours).toLocaleString('pt-BR')} horas de atividades extracurriculares.`;
   wrap(paragraph,650,regular,14).forEach(line=>{center(line,y,14);y-=21;});
   const signatures=[{x:245,name:c.signer_name,role:c.signer_role},{x:602,name:c.coordinator_name,role:c.coordinator_role}];
   for(const s of signatures){page.drawLine({start:{x:s.x-115,y:137},end:{x:s.x+115,y:137},thickness:.7,color:gray});let fs=11;while(bold.widthOfTextAtSize(safe(s.name),fs)>240&&fs>7)fs--;const text=safe(s.name);page.drawText(text,{x:s.x-bold.widthOfTextAtSize(text,fs)/2,y:120,size:fs,font:bold,color:navy});const role=safe(s.role);page.drawText(role,{x:s.x-regular.widthOfTextAtSize(role,9)/2,y:105,size:9,font:regular,color:gray});}
@@ -62,7 +62,7 @@ export async function certificatePDF(c){
   page.drawText('Valide a autenticidade pelo QR Code ou no endereço do site:',{x:130,y:77,size:8,font:regular,color:gray});
   const shortURL=new URL('validar.html',document.baseURI).href;let urlSize=8;while(regular.widthOfTextAtSize(safe(shortURL),urlSize)>620&&urlSize>5)urlSize--;
   page.drawText(safe(shortURL),{x:130,y:63,size:urlSize,font:regular,color:navy});page.drawText(`Código: ${c.id}`,{x:130,y:49,size:8,font:regular,color:gray});
-  center('Atividade de extensão. Não confere habilitação profissional nem autoriza suturas em pacientes.',32,7,regular,gray);
+  center('Atividade de extensão. Não confere habilitação profissional.',32,7,regular,gray);
   if(preview)markPreview();
   doc.setTitle(`${preview?'PREVIA SEM VALIDADE - ':''}Certificado - ${c.full_name}`);doc.setAuthor('LAUTE');doc.setSubject('Participação em curso de extensão');
   download(await doc.save(),`${preview?'PREVIA_SEM_VALIDADE':'Certificado'}_LAUTE_${safe(c.full_name).replace(/[^A-Za-z0-9]+/g,'_')}.pdf`,'application/pdf');

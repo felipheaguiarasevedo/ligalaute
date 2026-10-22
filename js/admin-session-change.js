@@ -1,5 +1,5 @@
-import {$,rpc,busy,message,date,escapeHTML as esc} from './common.js?v=20261019-1';
-import {sessionChangeError} from './session-change.js?v=12';
+import {$,rpc,busy,message,date,escapeHTML as esc} from './common.js?v=20261022-ps1';
+import {sessionChangeError} from './session-change.js?v=20261022-ps1';
 
 export function renderAdminSessionChange({registration:r,sessions,hasCertificate,isDirty,onUpdated}){
   const node=$('#admin-session-change');
@@ -14,7 +14,7 @@ export function renderAdminSessionChange({registration:r,sessions,hasCertificate
   const previous=sessions.find(s=>s.id===r.session_changed_from);
   node.innerHTML=`<div class="eyebrow">AUTONOMIA DO PARTICIPANTE</div><h3>Troca de turno pelo participante</h3>
     <p><strong>${r.session_change_allowed?'Uma troca liberada':'Troca não liberada'}</strong></p>
-    <p class="small muted">Ao liberar, o participante poderá acessar “Minha inscrição” com código e e-mail e escolher outro turno com vagas. A autorização é encerrada após uma troca concluída.</p>
+    <p class="small muted">Ao liberar, o participante poderá acessar a Área do participante e escolher outro turno com vagas. A autorização é encerrada após uma troca concluída.</p>
     ${r.session_change_allowed_at?`<p class="small">Liberada em ${date(r.session_change_allowed_at)} às ${date(r.session_change_allowed_at,{hour:'2-digit',minute:'2-digit'})}.</p>`:''}
     ${r.session_changed_at?`<p class="small">Última troca pelo participante: ${date(r.session_changed_at)} às ${date(r.session_changed_at,{hour:'2-digit',minute:'2-digit'})}${previous?' · saiu de '+esc(previous.label):''}.</p>`:''}
     ${reason?`<p class="small muted">${esc(reason)}</p>`:''}

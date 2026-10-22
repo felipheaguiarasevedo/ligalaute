@@ -1,6 +1,6 @@
-import {shell,icon,SITE_VERSION} from './site-shell.js?v=20261019-1';
-import {photos as suppliedPhotos} from './media-data.js?v=20261019-1';
-import {filterPhotos,nextPhotoIndex,safeGalleryURL} from './site-logic.js?v=20261019-1';
+import {shell,icon,SITE_VERSION} from './site-shell.js?v=20261022-ps1';
+import {photos as suppliedPhotos} from './media-data.js?v=20261022-ps1';
+import {filterPhotos,nextPhotoIndex,safeGalleryURL} from './site-logic.js?v=20261022-ps1';
 
 shell(document.body.dataset.page||'');
 document.querySelectorAll('[data-icon]').forEach(node=>{node.outerHTML=icon(node.dataset.icon);});

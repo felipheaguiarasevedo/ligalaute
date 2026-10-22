@@ -1,5 +1,5 @@
 import { createClient } from '../assets/vendor/supabase.js';
-import {header as siteHeader,footer as siteFooter,shell as siteShell} from './site-shell.js?v=20261019-1';
+import {header as siteHeader,footer as siteFooter,shell as siteShell} from './site-shell.js?v=20261022-ps1';
 export const $ = (q, root=document) => root.querySelector(q);
 export const $$ = (q, root=document) => [...root.querySelectorAll(q)];
 export const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -15,7 +15,7 @@ export const configured = /^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(cfg.supaba
 export const db = configured ? createClient(cfg.supabaseUrl,cfg.supabaseAnonKey,{auth:{storage:sessionStorage,storageKey:'laute-admin-session',persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}) : null;
 export async function rpc(name,args={}) {
   if(!db) throw new Error('O sistema de inscrições está em preparação. Tente novamente mais tarde.');
-  const {data,error}=await db.rpc(name,args); if(error) throw new Error(error.message || 'Não foi possível concluir. Tente novamente.'); return data;
+  const {data,error}=await db.rpc(name,args); if(error){const failure=new Error(error.message || 'Não foi possível concluir. Tente novamente.');failure.code=error.code;throw failure;} return data;
 }
 export async function getEvent() {
   if(!db) return {...defaults};
@@ -50,7 +50,7 @@ export function isOpen(e){return e.registrations_enabled && Date.now()>=new Date
 export function paymentBlock(e,registration=null){
   const overdue=e.payment_deadline && Date.now()>new Date(e.payment_deadline).getTime();
   const whatsapp=String(e.contact_whatsapp||'').replace(/\D/g,'');
-  const who=registration?` Meu nome é ${registration.full_name}. Inscrição: ${registration.code}.${registration.session_label?` Turno: ${registration.session_label}, às ${date(registration.session_starts_at,{hour:'2-digit',minute:'2-digit'})}.`:''}`:'';
+  const who=registration?` Meu nome é ${registration.full_name}.${registration.code?` Inscrição: ${registration.code}.`:''}${registration.session_label?` Turno: ${registration.session_label}, às ${date(registration.session_starts_at,{hour:'2-digit',minute:'2-digit'})}.`:''}`:'';
   const text=overdue?`Olá! Gostaria de orientação sobre o pagamento do ${e.title}, pois o prazo informado terminou.${who}`:`Olá! Quero enviar o comprovante de pagamento do ${e.title}.${who} Valor: ${money(e.price)}.`;
   let qr='';
   if(e.pix_copy_paste&&window.qrcode){try{const code=window.qrcode(0,'M');code.addData(e.pix_copy_paste);code.make();qr=code.createSvgTag({cellSize:3,margin:12,scalable:true});}catch{}}

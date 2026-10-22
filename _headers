@@ -35,6 +35,16 @@
 /sutura.html
   Cache-Control: no-store
 
+/primeiros-socorros.html
+  Cache-Control: no-store
+
+/course-ui.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/supabase/ATIVAR_MULTICURSOS_PRIMEIROS_SOCORROS.sql
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: no-store
+
 /certificados.html
   Cache-Control: no-store
 

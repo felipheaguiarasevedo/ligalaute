@@ -1,4 +1,4 @@
-import {$,$$,rpc,date,message,busy,escapeHTML as esc} from './common.js?v=20261019-1';
+import {$,$$,rpc,date,message,busy,escapeHTML as esc} from './common.js?v=20261022-ps1';
 
 export function sessionChangeError(error){
   const text=error?.message||'Não foi possível consultar os turnos. Tente novamente.';
@@ -7,13 +7,13 @@ export function sessionChangeError(error){
     : text;
 }
 
-// Código e e-mail ficam somente na memória desta consulta.
+// Credenciais ficam somente na memória desta consulta, nunca na URL ou localStorage.
 export async function mountSessionChange(node,credentials,{onChanged,onBusy=()=>{}}={}){
   let state,request=null,loading=false,sending=false;
   node.innerHTML=`<div class="session-change-heading"><div><span class="eyebrow">SUA PARTICIPAÇÃO</span><h3>Trocar de turno</h3></div><button type="button" class="btn secondary" data-refresh-turns>Atualizar liberação e vagas</button></div>
     <p class="small muted" data-change-info>Consultando a liberação da organização…</p>
     <form data-change-form hidden><fieldset class="change-options"><legend>Escolha o novo turno</legend><div data-change-options></div></fieldset>
-    <p class="small muted">Cada liberação permite uma troca. Seu código e pagamento serão mantidos. A disponibilidade será conferida novamente ao confirmar.</p>
+    <p class="small muted">Cada liberação permite uma troca. Sua inscrição e pagamento serão mantidos. A disponibilidade será conferida novamente ao confirmar.</p>
     <button type="submit" class="btn primary" disabled>Confirmar troca de turno</button></form>
     <div class="message" data-change-message hidden role="status"></div>`;
   const form=$('[data-change-form]',node),refresh=$('[data-refresh-turns]',node),notice=$('[data-change-message]',node),submit=$('button[type=submit]',form);
@@ -25,7 +25,7 @@ export async function mountSessionChange(node,credentials,{onChanged,onBusy=()=>
     loading=true;busy(refresh,true,'Atualizando…');updateButton();if(clear)message(notice,'');
     const previous=selected();
     try{
-      const result=await rpc('laute_session_change_options',credentials);
+      const result=await rpc(credentials.p_full_name?'laute_course_change_options':'laute_session_change_options',credentials);
       if(!node.isConnected)return;
       state=result;
       $('[data-change-info]',node).textContent=result.eligible
@@ -61,11 +61,11 @@ export async function mountSessionChange(node,credentials,{onChanged,onBusy=()=>
     sending=true;busy(submit,true,'Confirmando troca…');refresh.disabled=true;
     $$('input',form).forEach(el=>{el.dataset.wasDisabled=String(el.disabled);el.disabled=true;});onBusy(true);message(notice,'');
     try{
-      const result=await rpc('laute_change_session',{...credentials,p_session_id:id,p_request_id:request.id});
+      const result=await rpc(credentials.p_full_name?'laute_course_change_session':'laute_change_session',{...credentials,p_session_id:id,p_request_id:request.id});
       if(!result?.registration)throw new Error('Atualize a consulta para conferir o turno da sua inscrição.');
       await onChanged(result.registration,result.replayed
         ? 'Esta solicitação já havia sido concluída. Confira seu turno atual abaixo.'
-        : 'Turno alterado com sucesso! Seu código e pagamento foram mantidos.');
+        : 'Turno alterado com sucesso! Sua inscrição e pagamento foram mantidos.');
     }catch(error){
       if(node.isConnected){message(notice,sessionChangeError(error));await load(false);}
     }finally{

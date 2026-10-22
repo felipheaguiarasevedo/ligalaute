@@ -1,5 +1,5 @@
-import {$,$$,shell,getPublicEvent,getPaymentEvent,hydrate,isOpen,registrationWindow,message,rpc,money,paymentBlock,escapeHTML as esc,copy,busy,download,configured,date,bindPayment} from './common.js?v=20261019-1';
-import {getSessions,renderSessions,fillSessionOptions,sessionText,registrationSession} from './sessions.js';
+import {$,$$,shell,getPublicEvent,getPaymentEvent,hydrate,isOpen,registrationWindow,message,rpc,money,paymentBlock,escapeHTML as esc,copy,busy,download,configured,date,bindPayment} from './common.js?v=20261022-ps1';
+import {getSessions,renderSessions,fillSessionOptions,sessionText,registrationSession} from './sessions.js?v=20261022-ps1';
 shell('register');
 let event,sessions=[],loadingAvailability=false,step=0,requestId=crypto.randomUUID();const form=$('#registration-form');
 function selectSession(id){

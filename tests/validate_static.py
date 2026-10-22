@@ -66,7 +66,7 @@ for width in ('1200px', '1080px', '760px', '370px'):
 if 'prefers-reduced-motion:reduce' not in css:
     issues.append('site.css: opção de movimento reduzido ausente')
 
-public = [*root.glob('*.html'), root/'site.css', root/'_headers', root/'_redirects', *(root/'js').glob('*.js'), *(root/'assets/photos').glob('*.webp')]
+public = [*root.glob('*.html'), root/'site.css', root/'course-ui.css', root/'supabase/ATIVAR_MULTICURSOS_PRIMEIROS_SOCORROS.sql', root/'assets/primeiros-socorros-poster.svg', root/'assets/primeiros-socorros-poster.png', root/'_headers', root/'_redirects', *(root/'js').glob('*.js'), *(root/'assets/photos').glob('*.webp')]
 for file in public:
     mirror = root/'liga laute'/file.relative_to(root)
     if not mirror.exists() or mirror.read_bytes() != file.read_bytes():

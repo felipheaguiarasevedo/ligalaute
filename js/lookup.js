@@ -1,7 +1,7 @@
-import {$,shell,getPublicEvent,getPaymentEvent,hydrate,message,rpc,busy,badge,payments,escapeHTML as esc,paymentBlock,bindPayment,date,money} from './common.js?v=20261019-1';
-import { certificatePDF } from './pdf.js?v=10';
-import {registrationSession} from './sessions.js';
-import {mountSessionChange} from './session-change.js?v=12';
+import {$,shell,getPublicEvent,getPaymentEvent,hydrate,message,rpc,busy,badge,payments,escapeHTML as esc,paymentBlock,bindPayment,date,money} from './common.js?v=20261022-ps1';
+import { certificatePDF } from './pdf.js?v=20261022-ps1';
+import {registrationSession} from './sessions.js?v=20261022-ps1';
+import {mountSessionChange} from './session-change.js?v=20261022-ps1';
 shell('lookup');let event;try{event=await getPublicEvent();hydrate(event);}catch{}
 if(location.hash){try{$('#lookup-form').elements.code.value=decodeURIComponent(location.hash.slice(1));}catch{}}
 const lookupForm=$('#lookup-form');

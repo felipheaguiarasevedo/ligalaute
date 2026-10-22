@@ -1,6 +1,6 @@
-export const SITE_VERSION = '20261019-1';
+export const SITE_VERSION = '20261022-ps1';
 export const instagram = 'https://www.instagram.com/liga.laute_/';
-export const support = 'https://wa.me/5598984035387?text=' + encodeURIComponent('Olá, LAUTE! Preciso de suporte com minha inscrição ou certificado.');
+export const support = 'https://wa.me/5598991100569?text=' + encodeURIComponent('Olá, Alice! Preciso de suporte com minha inscrição ou certificado da LAUTE.');
 const drawings = {
   arrow:'<path d="M5 12h14m-6-6 6 6-6 6"/>',
   external:'<path d="M7 17 17 7M7 7h10v10"/>',

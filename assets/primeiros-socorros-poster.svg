@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+<title id="title">Curso de Primeiros Socorros — PCR e OVACE · LAUTE</title><desc id="desc">19 de novembro de 2026, Estácio Turu. Aberto ao público. R$ 25. Certificado de 6 horas. 60 vagas por turno. Manhã 8h às 12h, tarde 14h às 18h, noite 18h30 às 21h30. Inscrições de 22 de outubro a 18 de novembro.</desc>
+<defs><pattern id="grid" width="54" height="54" patternUnits="userSpaceOnUse"><path d="M54 0H0V54" fill="none" stroke="#fff" stroke-opacity=".055"/></pattern></defs>
+<rect width="1080" height="1350" fill="#091f37"/><rect width="1080" height="1130" fill="url(#grid)"/>
+<path d="M760-50h220L580 1090H360Z" fill="#fff" opacity=".025"/>
+<g fill="none" stroke="#fff" stroke-opacity=".12"><circle cx="1000" cy="500" r="280"/><circle cx="1000" cy="500" r="330"/></g>
+<rect x="68" y="65" width="120" height="5" rx="2" fill="#d95769"/>
+<text x="68" y="126" font-family="Arial,sans-serif" font-size="46" font-weight="800" letter-spacing="3" fill="#fff">LAUTE<tspan fill="#df8794">.</tspan></text>
+<text x="68" y="161" font-family="Arial,sans-serif" font-size="17" letter-spacing="2.6" fill="#b8cada">ENSINO · PESQUISA · EXTENSÃO</text>
+<rect x="738" y="86" width="274" height="54" rx="27" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".3"/>
+<text x="875" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="700" letter-spacing="1" fill="#fff">ABERTO AO PÚBLICO</text>
+<text x="68" y="252" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4.2" fill="#e6a3ae">CURSO DE</text>
+<text x="59" y="364" font-family="Arial,sans-serif" font-size="99" font-weight="800" letter-spacing="-4" fill="#fff">Primeiros</text>
+<text x="59" y="475" font-family="Arial,sans-serif" font-size="99" font-weight="800" letter-spacing="-4" fill="#fff">Socorros<tspan fill="#e899a6">.</tspan></text>
+<text x="68" y="536" font-family="Arial,sans-serif" font-size="30" letter-spacing="5" fill="#d6e0e9">PCR + OVACE</text>
+<g transform="translate(805 322)"><circle cx="0" cy="0" r="123" fill="#b32d42"/><path d="M-72 8h34l15-37 23 77 24-69 15 29h34" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M0-57c-42-50-105 3-72 49 16 24 45 45 72 63 28-18 57-39 73-63 32-46-31-99-73-49Z" fill="none" stroke="#fff" stroke-opacity=".24" stroke-width="3"/></g>
+<text x="68" y="609" font-family="Arial,sans-serif" font-size="27" fill="#c5d2df">Conhecimento para agir com responsabilidade.</text>
+<line x1="68" x2="1012" y1="656" y2="656" stroke="#fff" stroke-opacity=".2"/>
+<text x="63" y="772" font-family="Arial,sans-serif" font-size="115" font-weight="800" letter-spacing="-5" fill="#fff">19<tspan font-size="65" letter-spacing="-2"> NOV</tspan></text>
+<text x="72" y="812" font-family="Arial,sans-serif" font-size="26" letter-spacing="7" fill="#b8cada">2 0 2 6</text>
+<line x1="433" x2="433" y1="696" y2="823" stroke="#fff" stroke-opacity=".2"/>
+<text x="474" y="729" font-family="Arial,sans-serif" font-size="20" letter-spacing="2.5" fill="#b8cada">INVESTIMENTO</text>
+<text x="469" y="797" font-family="Arial,sans-serif" font-size="63" font-weight="700" letter-spacing="-2" fill="#fff">R$ 25<tspan font-size="37">,00</tspan></text>
+<rect x="783" y="686" width="229" height="142" rx="5" fill="#fff" fill-opacity=".06" stroke="#fff" stroke-opacity=".15"/>
+<text x="898" y="746" text-anchor="middle" font-family="Arial,sans-serif" font-size="40" font-weight="700" fill="#e9a4b0">6 HORAS</text>
+<text x="898" y="785" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#d6e0e9">DE CERTIFICAÇÃO</text>
+<g font-family="Arial,sans-serif"><text x="68" y="895" font-size="21" font-weight="700" letter-spacing="3" fill="#fff">ESCOLHA SEU TURNO</text><text x="1012" y="895" text-anchor="end" font-size="21" fill="#bdccda">60 vagas por turno</text>
+<rect x="68" y="925" width="298" height="131" rx="5" fill="#fff" fill-opacity=".06" stroke="#fff" stroke-opacity=".25"/><rect x="391" y="925" width="298" height="131" rx="5" fill="#fff" fill-opacity=".06" stroke="#fff" stroke-opacity=".25"/><rect x="714" y="925" width="298" height="131" rx="5" fill="#fff" fill-opacity=".06" stroke="#fff" stroke-opacity=".25"/>
+<text x="94" y="967" font-size="19" letter-spacing="2" fill="#e3a0ac">MANHÃ</text><text x="94" y="1018" font-size="31" font-weight="700" fill="#fff">08h às 12h</text><text x="417" y="967" font-size="19" letter-spacing="2" fill="#e3a0ac">TARDE</text><text x="417" y="1018" font-size="31" font-weight="700" fill="#fff">14h às 18h</text><text x="740" y="967" font-size="19" letter-spacing="2" fill="#e3a0ac">NOITE</text><text x="740" y="1018" font-size="31" font-weight="700" fill="#fff">18h30 às 21h30</text></g>
+<rect x="0" y="1111" width="1080" height="239" fill="#f4f5f2"/>
+<rect x="0" y="1111" width="1080" height="6" fill="#b32d42"/>
+<g font-family="Arial,sans-serif"><text x="68" y="1179" font-size="26" font-weight="700" fill="#091f37">ESTÁCIO TURU · SÃO LUÍS / MA</text><text x="68" y="1216" font-size="20" fill="#596b7b">Espaço do curso a divulgar pela organização.</text><text x="68" y="1274" font-size="23" font-weight="700" fill="#a7253d">INSCRIÇÕES · 22/10 A 18/11</text><text x="68" y="1313" font-size="18" fill="#596b7b">LAUTE · Liga Acadêmica de Urgência, Trauma e Emergência</text><text x="1012" y="1274" text-anchor="end" font-size="23" font-weight="700" fill="#091f37">@liga.laute_</text></g>
+</svg>
