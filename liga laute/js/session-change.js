@@ -1,4 +1,4 @@
-import {$,$$,rpc,date,message,busy,escapeHTML as esc} from './common.js?v=20261022-ps1';
+import {$,$$,rpc,date,message,busy,escapeHTML as esc} from './common.js?v=20261116-ps2';
 
 export function sessionChangeError(error){
   const text=error?.message||'Não foi possível consultar os turnos. Tente novamente.';

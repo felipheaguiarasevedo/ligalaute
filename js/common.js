@@ -1,5 +1,5 @@
 import { createClient } from '../assets/vendor/supabase.js';
-import {header as siteHeader,footer as siteFooter,shell as siteShell} from './site-shell.js?v=20261022-ps1';
+import {header as siteHeader,footer as siteFooter,shell as siteShell} from './site-shell.js?v=20261116-ps2';
 export const $ = (q, root=document) => root.querySelector(q);
 export const $$ = (q, root=document) => [...root.querySelectorAll(q)];
 export const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

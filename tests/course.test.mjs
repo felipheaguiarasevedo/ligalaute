@@ -2,11 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {FIRST_AID,FIRST_AID_SESSIONS,coursePhase,fullName,validFullName,csvCell,supportLink} from '../js/first-aid-data.js';
-test('novo curso usa os valores e três horários informados, sem ministrante não confirmado',()=>{
+test('novo curso usa os valores e o único turno matutino, sem ministrante não confirmado',()=>{
   assert.equal(FIRST_AID.price,25);assert.equal(FIRST_AID.hours,6);assert.equal(FIRST_AID.instructor,null);
-  assert.equal(FIRST_AID_SESSIONS.length,3);assert.equal(new Set(FIRST_AID_SESSIONS.map(s=>s.id)).size,3);
+  assert.equal(FIRST_AID.starts_at,'2026-12-05T08:00:00-03:00');assert.equal(FIRST_AID_SESSIONS.length,1);assert.equal(new Set(FIRST_AID_SESSIONS.map(s=>s.id)).size,1);
   for(const s of FIRST_AID_SESSIONS)assert.equal(s.capacity,60);
-  assert.match(FIRST_AID_SESSIONS[2].ends_at,/21:30:00-03:00/);
+  assert.equal(FIRST_AID_SESSIONS[0].label,'Matutino');assert.match(FIRST_AID_SESSIONS[0].ends_at,/12:00:00-03:00/);
   assert.match(supportLink(),/5598991100569/);
 });
 test('abertura e encerramento respeitam a data de Brasília, inclusive no limite',()=>{
@@ -27,7 +27,7 @@ test('CSV escapa aspas e neutraliza fórmulas de planilha',()=>{
 test('página do curso é fail-closed e não solicita código nem dados acadêmicos',()=>{
   const html=readFileSync('primeiros-socorros.html','utf8'),js=readFileSync('js/first-aid.js','utf8');
   assert.match(html,/id="ps-form-fields" disabled/);assert.doesNotMatch(html,/<input[^>]+name="(?:code|institution|semester|course)"/);
-  assert.match(html,/Não é obrigatório/);assert.match(html,/21h30/);assert.match(html,/id="ps-instructor" hidden/);
+  assert.match(html,/Não é obrigatório/);assert.match(html,/08h às 12h/);assert.doesNotMatch(html,/21h30/);assert.match(html,/id="ps-instructor" hidden/);
   assert.match(js,/laute_course_register/);assert.match(js,/crypto.randomUUID/);assert.doesNotMatch(js,/localStorage|Math.random/);
 });
 test('admin separa tabelas e mutações novas, preserva painel legado e inclui ativação',()=>{

@@ -1,9 +1,9 @@
-import {$,$$,shell,db,configured,rpc,getEvent,message,busy,badge,payments,statuses,escapeHTML as esc,date,money,download,registrationWindow} from './common.js?v=20261022-ps1';
-import {certificatePDF} from './pdf.js?v=20261022-ps1';
-import {getSessions,renderSessions,fillSessionOptions,sessionText} from './sessions.js?v=20261022-ps1';
-import {renderAdminSessionChange} from './admin-session-change.js?v=20261022-ps1';
-import {sessionChangeError} from './session-change.js?v=20261022-ps1';
-import {createCourseHub} from './admin-courses.js?v=20261022-ps1';
+import {$,$$,shell,db,configured,rpc,getEvent,message,busy,badge,payments,statuses,escapeHTML as esc,date,money,download,registrationWindow} from './common.js?v=20261116-ps2';
+import {certificatePDF} from './pdf.js?v=20261116-ps2';
+import {getSessions,renderSessions,fillSessionOptions,sessionText} from './sessions.js?v=20261116-ps2';
+import {renderAdminSessionChange} from './admin-session-change.js?v=20261116-ps2';
+import {sessionChangeError} from './session-change.js?v=20261116-ps2';
+import {createCourseHub} from './admin-courses.js?v=20261116-ps2';
 shell();let rows=[],certificates=[],sessions=[],event,selected,loadingSummary=false;const selectedIds=new Set();let bulkRunning=false;const galleryBucket='laute-gallery';let galleryRows=[];
 const login=$('#login-form'),detail=$('#detail-form'),settings=$('#settings-form');
 const courseHub=createCourseHub({legacyStats:()=>({total:rows.length,confirmed:rows.filter(r=>r.status==='confirmed').length,certificates:certificates.filter(c=>!c.revoked_at).length}),onLegacy:async()=>{$('#dashboard').hidden=false;await loadAdminGallery();},onLogout:()=>$('#logout').click()});

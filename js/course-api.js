@@ -1,5 +1,5 @@
-import {db,rpc} from './common.js?v=20261022-ps1';
-import {FIRST_AID_ID} from './first-aid-data.js?v=20261022-ps1';
+import {db,rpc} from './common.js?v=20261116-ps2';
+import {FIRST_AID_ID} from './first-aid-data.js?v=20261116-ps2';
 export const activationFile='supabase/ATIVAR_MULTICURSOS_PRIMEIROS_SOCORROS.sql';
 export function migrationMissing(error){return /PGRST202|42883/.test(error?.code||'')||/could not find.*function|function .*does not exist|schema cache/i.test(error?.message||'');}
 export async function platformStatus(){
@@ -9,7 +9,7 @@ export async function platformStatus(){
 }
 export async function firstAidAvailability(){
   const [event,sessions]=await Promise.all([rpc('laute_course_public',{p_course_id:FIRST_AID_ID}),rpc('laute_course_availability',{p_course_id:FIRST_AID_ID})]);
-  if(!event||!Array.isArray(sessions)||sessions.length!==3)throw new Error('A organização está finalizando a configuração das inscrições.');
+  if(!event||!Array.isArray(sessions)||sessions.length<1)throw new Error('A organização está finalizando a configuração das inscrições.');
   return {event,sessions};
 }
 export const nameCredentials=(courseId,name,email)=>({p_course_id:courseId,p_full_name:name,p_email:email});

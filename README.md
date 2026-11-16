@@ -8,7 +8,7 @@ Site institucional estático da Liga Acadêmica de Urgência, Trauma e Emergênc
 - `sobre.html`: identidade, propósito e pilares.
 - `cursos.html`: catálogo com filtros de próximos e realizados.
 - `sutura.html`: memória e informações da edição de 15/10/2026, com inscrições encerradas.
-- `primeiros-socorros.html`: descrição, pôster e inscrição do curso de 19/11/2026; três turnos de 60 vagas, R$ 25 e 6h de certificação.
+- `primeiros-socorros.html`: descrição, pôster e inscrição do curso de 05/12/2026; um turno matutino de 60 vagas, R$ 25 e 6h de certificação.
 - `galeria.html`: fotos desta edição e fotos adicionais publicadas pelo painel no Supabase.
 - `certificados.html`: orientações de emissão e validação.
 - `contato.html`: canais oficiais e localização.
@@ -28,7 +28,7 @@ O deploy não executa migrações de banco. No **mesmo projeto Supabase**, abra 
 
 A atualização é aditiva e pode ser reexecutada: não apaga registros nem altera funções/tabelas originais de Sutura. Cria tabelas próprias para cursos, turnos, inscrições, certificados, trocas e auditoria; reutiliza `laute_is_admin()` para autorizar a equipe. O contato financeiro é copiado da configuração existente. O Pix inicial de Primeiros Socorros é o enviado pela organização: R$ 25,00 para VITORIA SANTOS DA COSTA, chave aleatória `f73756ec-b123-4344-a440-eb6efadad827`.
 
-Se o módulo multicursos já foi ativado antes dessa atualização do Pix, execute somente `supabase/ATUALIZAR_PIX_PRIMEIROS_SOCORROS.sql` no SQL Editor. Ele altera os três campos de Pix apenas de Primeiros Socorros e confere que o curso continua com preço de R$ 25,00. O QR Code exibido após a inscrição e na consulta individual é gerado pelo site a partir desse mesmo copia-e-cola; não é necessário enviar a imagem do banco como arquivo do site. O QR enviado foi decodificado e comparado com o texto, e o CRC `F720` foi validado.
+Se o módulo multicursos já foi ativado antes da remarcação, execute `supabase/ATUALIZAR_DATA_PRIMEIROS_SOCORROS.sql` no SQL Editor. Ele concentra as inscrições no turno matutino de 05/12/2026, remove os turnos antigos e publica o comunicado na área de cada participante sem apagar inscrições. O Pix continua sendo atualizado separadamente por `supabase/ATUALIZAR_PIX_PRIMEIROS_SOCORROS.sql` quando necessário. O QR Code exibido após a inscrição e na consulta individual é gerado pelo site a partir do copia-e-cola; não é necessário enviar a imagem do banco como arquivo do site.
 
 Sem a atualização, a página informativa e o pôster funcionam, mas o cadastro novo permanece bloqueado. A consulta antiga de Sutura por código/e-mail é preservada durante a transição. Após ativar, ambos os cursos podem ser consultados por nome completo/e-mail; códigos antigos continuam somente internamente para compatibilidade. Nome/e-mail não equivalem a autenticação forte: as consultas retornam apenas dados individuais limitados; não retornam telefone nem observações internas. O painel continua exigindo login autorizado e RLS.
 

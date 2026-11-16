@@ -37,10 +37,12 @@ create table if not exists public.laute_courses (
   signer_role text,
   coordinator_name text,
   coordinator_role text,
+  participant_notice text not null default '',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   check(opens_at<closes_at and closes_at<starts_at)
 );
+alter table public.laute_courses add column if not exists participant_notice text not null default '';
 create table if not exists public.laute_course_sessions (
   id text primary key,
   course_id text not null references public.laute_courses(id),
@@ -126,7 +128,7 @@ end $$;
 insert into public.laute_courses(id,title,opens_at,closes_at,starts_at,price,hours,venue,support_name,support_whatsapp,
   pix_key,pix_copy_paste,pix_recipient,contact_whatsapp,finance_contact,payment_instructions)
 select 'primeiros-socorros-2026','Curso de Primeiros Socorros — PCR e OVACE',
-  '2026-10-22 00:00:00-03','2026-11-18 23:59:59-03','2026-11-19 08:00:00-03',25,6,
+  '2026-10-22 00:00:00-03','2026-11-18 23:59:59-03','2026-12-05 08:00:00-03',25,6,
   'Estácio Turu — espaço a divulgar','Alice · 1ª Secretária','5598991100569',
   'f73756ec-b123-4344-a440-eb6efadad827',
   '00020101021126580014br.gov.bcb.pix0136f73756ec-b123-4344-a440-eb6efadad827520400005303986540525.005802BR5918VITORIA S DA COSTA6008SAO LUIS62070503***6304F720',
@@ -137,10 +139,15 @@ from public.laute_event e where e.id='sutura-2026'
 on conflict(id) do nothing;
 -- Em projetos já ativados, use ATUALIZAR_PIX_PRIMEIROS_SOCORROS.sql para aplicar o novo Pix.
 insert into public.laute_course_sessions(id,course_id,label,starts_at,ends_at,capacity) values
-('ps-2026-manha','primeiros-socorros-2026','Manhã','2026-11-19 08:00:00-03','2026-11-19 12:00:00-03',60),
-('ps-2026-tarde','primeiros-socorros-2026','Tarde','2026-11-19 14:00:00-03','2026-11-19 18:00:00-03',60),
-('ps-2026-noite','primeiros-socorros-2026','Noite','2026-11-19 18:30:00-03','2026-11-19 21:30:00-03',60)
+('ps-2026-manha','primeiros-socorros-2026','Matutino','2026-12-05 08:00:00-03','2026-12-05 12:00:00-03',60)
 on conflict(id) do nothing;
+update public.laute_courses set participant_notice=$notice$
+COMUNICADO IMPORTANTE — ALTERAÇÃO DE DATA E TURNO
+
+O Curso de Primeiros Socorros (PCR e OVACE) foi adiado para 05 de dezembro de 2026 (sábado). A atividade acontecerá em um único turno, pela manhã, das 8h às 12h. Sua inscrição foi automaticamente transferida para o turno matutino. Não é necessário realizar uma nova inscrição.
+
+Em caso de impossibilidade de participação ou dúvida, entre em contato com Alice, pelo WhatsApp (98) 99110-0569. O local exato dentro dos espaços da Estácio Turu será divulgado pela organização.$notice$
+where id='primeiros-socorros-2026' and coalesce(participant_notice,'')='';
 
 create or replace function public.laute_normalize_name(p_name text) returns text
 language sql immutable set search_path='' as $$
@@ -148,13 +155,13 @@ language sql immutable set search_path='' as $$
 $$;
 create or replace function public.laute_platform_status() returns jsonb
 language sql stable security definer set search_path='' as $$
-  select jsonb_build_object('version','2026.10.multicurso.1','name_lookup',true,
+  select jsonb_build_object('version','2026.11.single_shift.1','name_lookup',true,
     'first_aid_ready',exists(select 1 from public.laute_courses where id='primeiros-socorros-2026'));
 $$;
 create or replace function public.laute_course_public(p_course_id text) returns jsonb
 language sql stable security definer set search_path='' as $$
   select jsonb_build_object('id',c.id,'title',c.title,'starts_at',c.starts_at,'opens_at',c.opens_at,'closes_at',c.closes_at,
-    'price',c.price,'hours',c.hours,'venue',c.venue,'instructor',c.instructor,'completed',c.completed,
+    'price',c.price,'hours',c.hours,'venue',c.venue,'instructor',c.instructor,'completed',c.completed,'participant_notice',c.participant_notice,
     'registrations_enabled',c.registrations_enabled,'support_name',c.support_name,'support_whatsapp',c.support_whatsapp)
   from public.laute_courses c where c.id=p_course_id;
 $$;
@@ -177,7 +184,7 @@ language sql stable security definer set search_path='' as $$
   select jsonb_build_object('id',r.id,'course_id',r.course_id,'event_id',r.course_id,'source','multicourse',
     'full_name',r.full_name,'title',c.title,'status',r.status,'payment_status',r.payment_status,'amount_due',r.amount_due,
     'session_id',r.session_id,'session_label',s.label,'session_starts_at',s.starts_at,'session_ends_at',s.ends_at,
-    'attended',r.attended,'created_at',r.created_at,'public_note',r.public_note,
+    'attended',r.attended,'created_at',r.created_at,'public_note',r.public_note,'participant_notice',c.participant_notice,
     'certificate_id',(select x.id from public.laute_course_certificates x where x.registration_id=r.id and x.revoked_at is null limit 1))
   from public.laute_course_registrations r join public.laute_courses c on c.id=r.course_id
     join public.laute_course_sessions s on s.id=r.session_id where r.id=p_id;
@@ -387,8 +394,8 @@ declare item jsonb; s public.laute_course_sessions%rowtype; cap integer; start_t
 begin
   if not coalesce(public.laute_is_admin(),false) then raise exception 'Acesso restrito.';end if;
   perform 1 from public.laute_courses where id=p_course_id for update;
-  if not found or jsonb_typeof(payload)<>'array' or jsonb_array_length(payload)<>3 then raise exception 'Informe os três turnos deste curso.';end if;
-  if (select count(distinct x->>'id') from jsonb_array_elements(payload) x)<>3 then raise exception 'Não repita turnos.';end if;
+  if not found or jsonb_typeof(payload)<>'array' or jsonb_array_length(payload) not between 1 and 3 then raise exception 'Informe ao menos um turno deste curso.';end if;
+  if (select count(distinct x->>'id') from jsonb_array_elements(payload) x)<>jsonb_array_length(payload) then raise exception 'Não repita turnos.';end if;
   for item in select * from jsonb_array_elements(payload) loop
     select * into s from public.laute_course_sessions where id=item->>'id' and course_id=p_course_id;
     if not found then raise exception 'Turno inválido para este curso.';end if;

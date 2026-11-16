@@ -1,5 +1,5 @@
-import {$,rpc,busy,message,date,escapeHTML as esc} from './common.js?v=20261022-ps1';
-import {sessionChangeError} from './session-change.js?v=20261022-ps1';
+import {$,rpc,busy,message,date,escapeHTML as esc} from './common.js?v=20261116-ps2';
+import {sessionChangeError} from './session-change.js?v=20261116-ps2';
 
 export function renderAdminSessionChange({registration:r,sessions,hasCertificate,isDirty,onUpdated}){
   const node=$('#admin-session-change');
