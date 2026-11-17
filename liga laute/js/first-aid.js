@@ -1,7 +1,7 @@
-import {$,$$,shell,rpc,escapeHTML as esc,date,money,message,busy,paymentBlock,bindPayment,download} from './common.js?v=20261116-ps2';
-import {icon} from './site-shell.js?v=20261116-ps2';
-import {FIRST_AID,FIRST_AID_ID,FIRST_AID_SESSIONS,coursePhase,fullName,validFullName,supportLink} from './first-aid-data.js?v=20261116-ps2';
-import {platformStatus,firstAidAvailability,nameCredentials} from './course-api.js?v=20261116-ps2';
+import {$,$$,shell,rpc,escapeHTML as esc,date,money,message,busy,paymentBlock,bindPayment,download} from './common.js?v=20261117-ps3';
+import {icon} from './site-shell.js?v=20261117-ps3';
+import {FIRST_AID,FIRST_AID_ID,FIRST_AID_SESSIONS,coursePhase,fullName,validFullName,supportLink} from './first-aid-data.js?v=20261117-ps3';
+import {platformStatus,firstAidAvailability,nameCredentials} from './course-api.js?v=20261117-ps3';
 shell('courses');$$('[data-icon]').forEach(el=>el.outerHTML=icon(el.dataset.icon));
 const form=$('#first-aid-form'),fields=$('#ps-form-fields');
 let event={...FIRST_AID},sessions=[],ready=false,loading=false,sending=false,registered=false,attempt=null;
@@ -10,7 +10,9 @@ const enabled=s=>ready&&coursePhase(event)==='open'&&s.registrations_enabled&&!s
 function paint(){
   const phase=coursePhase(event),initial=!ready;
   const pool=ready?sessions:FIRST_AID_SESSIONS;
+  const selectedId=form.elements.session_id.value;
   form.elements.session_id.innerHTML='<option value="">Selecione o turno matutino</option>'+pool.map(s=>`<option value="${esc(s.id)}">${esc(s.label)} · ${esc(range(s))}</option>`).join('');
+  if(pool.some(s=>s.id===selectedId))form.elements.session_id.value=selectedId;
   $('#ps-sessions').innerHTML=pool.map(s=>`<article class="${form.elements.session_id.value===s.id?'is-selected':''}"><span>${esc(s.label.toUpperCase())}</span><h3>${esc(range(s))}</h3><p>Capacidade: <strong>${Number(s.capacity)} pessoas</strong></p>${ready?`<p class="ps-available">${Number(s.available)>0?Number(s.available)+' vagas restantes':'Turno lotado'}</p><small>${Number(s.confirmed)} confirmadas · ${Number(s.pending)} em análise</small>`:'<small>Disponibilidade confirmada após a ativação.</small>'}<button type="button" data-select-turn="${esc(s.id)}" ${enabled(s)&&!registered?'':'disabled'}>${form.elements.session_id.value===s.id?'Turno selecionado':'Escolher '+esc(s.label.toLowerCase())}</button></article>`).join('');
   $$('[data-select-turn]').forEach(button=>button.onclick=()=>{form.elements.session_id.value=button.dataset.selectTurn;paint();form.elements.full_name.focus();});
   for(const option of [...form.elements.session_id.options]){
