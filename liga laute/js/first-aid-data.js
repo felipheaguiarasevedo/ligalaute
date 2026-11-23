@@ -1,5 +1,5 @@
 export const FIRST_AID_ID='primeiros-socorros-2026';
-export const FIRST_AID={id:FIRST_AID_ID,title:'Curso de Primeiros Socorros — PCR e OVACE',starts_at:'2026-12-05T08:00:00-03:00',opens_at:'2026-10-22T00:00:00-03:00',closes_at:'2026-11-18T23:59:59-03:00',price:25,hours:6,venue:'Estácio Turu — espaço a divulgar',instructor:null,registrations_enabled:true,completed:false,support_name:'Alice · 1ª Secretária',support_whatsapp:'5598991100569'};
+export const FIRST_AID={id:FIRST_AID_ID,title:'Curso de Primeiros Socorros — PCR e OVACE',starts_at:'2026-12-05T08:00:00-03:00',opens_at:'2026-10-22T00:00:00-03:00',closes_at:'2026-12-04T23:59:59-03:00',price:25,hours:6,venue:'Estácio Turu — espaço a divulgar',instructor:null,registrations_enabled:true,completed:false,support_name:'Alice · 1ª Secretária',support_whatsapp:'5598991100569'};
 export const FIRST_AID_SESSIONS=[
   {id:'ps-2026-manha',course_id:FIRST_AID_ID,label:'Matutino',starts_at:'2026-12-05T08:00:00-03:00',ends_at:'2026-12-05T12:00:00-03:00',capacity:60}
 ];
