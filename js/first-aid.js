@@ -1,7 +1,7 @@
-import {$,$$,shell,rpc,escapeHTML as esc,date,money,message,busy,paymentBlock,bindPayment,download} from './common.js?v=20261117-ps3';
-import {icon} from './site-shell.js?v=20261117-ps3';
-import {FIRST_AID,FIRST_AID_ID,FIRST_AID_SESSIONS,coursePhase,fullName,validFullName,supportLink} from './first-aid-data.js?v=20261117-ps3';
-import {platformStatus,firstAidAvailability,nameCredentials} from './course-api.js?v=20261117-ps3';
+import {$,$$,shell,rpc,escapeHTML as esc,date,money,message,busy,paymentBlock,bindPayment,download} from './common.js?v=20261123-ps4';
+import {icon} from './site-shell.js?v=20261123-ps4';
+import {FIRST_AID,FIRST_AID_ID,FIRST_AID_SESSIONS,coursePhase,fullName,validFullName,supportLink} from './first-aid-data.js?v=20261123-ps4';
+import {platformStatus,firstAidAvailability,nameCredentials} from './course-api.js?v=20261123-ps4';
 shell('courses');$$('[data-icon]').forEach(el=>el.outerHTML=icon(el.dataset.icon));
 const form=$('#first-aid-form'),fields=$('#ps-form-fields');
 let event={...FIRST_AID},sessions=[],ready=false,loading=false,sending=false,registered=false,attempt=null;
